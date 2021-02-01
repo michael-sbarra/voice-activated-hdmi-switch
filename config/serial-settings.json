@@ -1,0 +1,18 @@
+{
+    "hdmi_devices_map": {
+        "chromecast": 1,
+        "ps 4": 2,
+        "switch": 3,
+        "wii u": 4
+    },
+    "serial_device": {
+        "port": "/dev/ttyUSB0",
+        "baud": 19200,
+        "timeout": 0
+    },
+    "server": {
+        "IP": "0.0.0.0",
+        "port": 8080,
+        "logging_level": "DEBUG"
+    }
+}
