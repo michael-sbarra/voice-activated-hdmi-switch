@@ -3,6 +3,7 @@ import os
 import sys
 import json
 import serial
+import argparse
 from flask import Flask, request
 import logging
 from logging.config import dictConfig
@@ -64,7 +65,10 @@ def handle_serial():
             selected_device_idx = config['hdmi_devices_map'][selected_device_name]
             serial_str_out = f"sw i0{selected_device_idx}\r\n"
 
-            device  = config['serial_device']['port']
+            if args.device:
+                device = args.device
+            else:
+                device  = config['serial_device']['port']
             baud    = config['serial_device']['baud']
             timeout = config['serial_device']['timeout']
 
@@ -84,6 +88,9 @@ def handle_serial():
     return response
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--device', type=str, required=False, help='serial device')
+    args = parser.parse_args()
     app.run \
     (
         config['server']['IP'],
