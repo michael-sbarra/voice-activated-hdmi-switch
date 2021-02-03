@@ -15,6 +15,7 @@ To change your Serial device, do so in the [config file](/config/serial-settings
 
 Full list of acceptable serial commands for the IOGear HDMI Switch found in its manual [here](https://www.iogear.com/support/dm/download_manual/?mnid=1494).
 
+
 ## Running the server from shell
 ```bash
 # Install requirements (conda or virtual env recommended)
@@ -24,6 +25,14 @@ python3 -m pip install requirements.txt
 ```
 
 ## Running the server from DOCKER
+
+In order to allow the docker image to access the USB-Serial adapter, it needs rw permissions for all users. This can be done with a udev rule.
+```bash
+echo '"KERNEL=="ttyUSB[0-9]*",MODE="0666"' >> /etc/udev/rules.d/99-serial.rules
+# Reload udev rules withot rebooting
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
 ```bash
 # Build the image
 docker build -t voice-hdmi-switch .
